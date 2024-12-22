@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пример сайта</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        #cookie-banner {
+            background: rgba(51, 51, 51, 0.9);
+            color: white;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            display: none; /* Скрыто по умолчанию */
+            position: fixed;
+            bottom: 20px; /* Положение внизу */
+            left: 50%;
+            transform: translateX(-50%); /* Центрирование по горизонтали */
+        }
+
+        #cookie-banner button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        #cookie-banner button:hover {
+            background-color: #218838;
+        }
+
+        #myVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none; /* Скрыто по умолчанию */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Добро пожаловать на наш сайт!</h1>
+
+<div id="cookie-banner">
+    Мы используем файлы cookie. <button id="accept-cookies">Принять</button>
+</div>
+
+<video id="myVideo" muted>
+    <source src="video/Видео WhatsApp 2024-12-22 в 19.42.09_8eee60ff.mp4" type="video/mp4">
+    Ваш браузер не поддерживает видео.
+</video>
+
+<script>
+    // Показать баннер с Cookie
+    document.getElementById('cookie-banner').style.display = 'block';
+
+    // Обработчик нажатия на кнопку "Принять"
+    document.getElementById('accept-cookies').onclick = function() {
+        // Скрыть баннер
+        document.getElementById('cookie-banner').style.display = 'none';
+
+        // Показать видео
+        var video = document.getElementById('myVideo');
+        video.style.display = 'block';
+
+        // Воспроизвести видео
+        video.play().then(() => {
+            // Установить громкость на максимум после успешного воспроизведения
+            video.volume = 1.0; // Установить максимальный звук (100%)
+        }).catch((error) => {
+            console.error("Ошибка воспроизведения видео:", error);
+        });
+
+        // Отключить взаимодействие с видео
+        video.controls = false; // Скрыть элементы управления
+        video.setAttribute('disable', 'true'); // Отключить взаимодействие
+
+        // Переключение на полный экран
+        if (video.requestFullscreen) {
+            video.requestFullscreen();
+        } else if (video.mozRequestFullScreen) { // Firefox
+            video.mozRequestFullScreen();
+        } else if (video.webkitRequestFullscreen) { // Chrome, Safari и Opera
+            video.webkitRequestFullscreen();
+        } else if (video.msRequestFullscreen) { // IE/Edge
+            video.msRequestFullscreen();
+        }
+    };
+</script>
+</body>
+</html>
